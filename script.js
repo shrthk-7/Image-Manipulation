@@ -3,6 +3,7 @@ import Filters from "./filters.js";
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
+// Image Upload
 document
   .getElementById("imageInput")
   .addEventListener("change", (inputEvent) => {
@@ -24,18 +25,33 @@ document
     };
   });
 
-const btn = document.getElementById("btn");
+// Filter Button
+document
+  .getElementById("filterBtn")
+  .addEventListener("click", (_clickEvent) => {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    // Filters.invertColors(imageData);
+    // Filters.changeBrightness(imageData, -50);
+    // Filters.blackAndWhite(imageData);
+    // Filters.changeSaturation(imageData, 0.05);
+    // Filters.changeHue(imageData, 0.25);
+    // Filters.blur(imageData, canvas.height, canvas.width);
+    // Filters.contrastStretch(imageData);
+    // Filters.powerTransform(imageData, 1.2);
+    Filters.thresholding(imageData);
+    ctx.putImageData(imageData, 0, 0);
+  });
 
-btn.addEventListener("click", () => {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  // Filters.invertColors(imageData);
-  // Filters.changeBrightness(imageData, -50);
-  // Filters.blackAndWhite(imageData);
-  // Filters.changeSaturation(imageData, 0.05);
-  // Filters.changeHue(imageData, 0.25);
-  // Filters.blur(imageData, canvas.height, canvas.width);
-  // Filters.contrastStretch(imageData);
-  // Filters.powerTransform(imageData, 1.2);
-  Filters.thresholding(imageData);
-  ctx.putImageData(imageData, 0, 0);
-});
+// Download Button
+document
+  .getElementById("downloadBtn")
+  .addEventListener("click", (_clickEvent) => {
+    const dataUrl = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = dataUrl;
+
+    const randomTag = Math.round(Math.random() * 1000);
+    a.download = `image-${randomTag}.jpeg`;
+
+    a.click();
+  });
