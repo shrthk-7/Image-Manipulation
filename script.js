@@ -4,6 +4,7 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const uploadBtn = document.getElementById("uploadBtn");
 const editor = document.getElementById("editor");
+const btns = document.getElementById("editorBtns");
 
 // Image Upload
 document
@@ -29,6 +30,11 @@ document
   });
 
 //brightness slider
+const brightnessBtn = document.getElementById("brightnessBtn");
+brightnessBtn.addEventListener("click", (_clickEvent) => {
+  btns.classList.add("hidden");
+});
+
 const brightnessSlider = document.getElementById("brightnessSlider");
 brightnessSlider.addEventListener("input", (inputEvent) => {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -36,6 +42,19 @@ brightnessSlider.addEventListener("input", (inputEvent) => {
   Filters.changeBrightness(imageData, inputEvent.target.value);
   ctx.putImageData(imageData, 0, 0);
 });
+
+brightnessSlider
+  .getElementsByClassName("applyBtn")
+  .addEventListener("click", (_clickEvent) => {
+    brightnessSlider.classList.add("hidden");
+    btns.classList.remove("hidden");
+  });
+brightnessSlider
+  .getElementsByClassName("cancelBtn")
+  .addEventListener("click", (_clickEvent) => {
+    brightnessSlider.classList.add("hidden");
+    btns.classList.remove("hidden");
+  });
 
 // Filter Button
 // document
