@@ -15,12 +15,11 @@
 			<label for="imageInput">Upload Image</label>
 		</button>
 		
-		<div class="editor hidden" id="editor">
+		<div id="editor">
 			<div>
 				<canvas id="myCanvas" width="500" height="500" style="border: 2px solid white;"></canvas>
 			</div>
 			<div id="editorBtns">
-				<!-- <button id="filterBtn">Filter</button> -->
 				<button id="brightnessBtn">Brightness</button>
 				<button id="invertBtn">Invert</button>
 				<button id="b&wBtn">Black & White</button>
@@ -31,8 +30,8 @@
 				<button id="powerTransformBtn">Power Transform</button>
 				<button id="thresholdingBtn">Thresholding</button>	
 			</div>
-			<div id="brightnessSlider">
-				<input id="brightnessSlider" type="range" min="-100" max="100" value="0">
+			<div id="brightnessSlider" class="hidden">
+				<input id="brightnessSlider" type="range" min="-600" max="600" value="0">
 				<button class="cancelBtn">Cancel</button>
 				<button class="applyBtn">Apply</button>
 			</div>

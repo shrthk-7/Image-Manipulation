@@ -49,11 +49,12 @@ document
 
 //brightness slider
 const brightnessBtn = document.getElementById("brightnessBtn");
+const brightnessSlider = document.getElementById("brightnessSlider");
 brightnessBtn.addEventListener("click", (_clickEvent) => {
   btns.classList.add("hidden");
+  brightnessSlider.classList.remove("hidden");
 });
 
-const brightnessSlider = document.getElementById("brightnessSlider");
 brightnessSlider.addEventListener("input", (inputEvent) => {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   Filters.resetImage(imageData, originalData);
@@ -62,16 +63,20 @@ brightnessSlider.addEventListener("input", (inputEvent) => {
 });
 
 brightnessSlider
-  .getElementsByClassName("applyBtn")
+  .getElementsByClassName("applyBtn")[0]
   .addEventListener("click", (_clickEvent) => {
     brightnessSlider.classList.add("hidden");
     btns.classList.remove("hidden");
+    applyFilter();
   });
 brightnessSlider
-  .getElementsByClassName("cancelBtn")
+  .getElementsByClassName("cancelBtn")[0]
   .addEventListener("click", (_clickEvent) => {
     brightnessSlider.classList.add("hidden");
     btns.classList.remove("hidden");
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    Filters.resetImage(imageData, originalData);
+    ctx.putImageData(imageData, 0, 0);
   });
 
 // Filter Button
