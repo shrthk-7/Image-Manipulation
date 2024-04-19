@@ -9,10 +9,11 @@ const invertColors = ({ data }) => {
 };
 
 const changeBrightness = ({ data }, amount) => {
+  amount = Math.round(amount / 3);
   for (let i = 0; i < data.length; i += 4) {
-    data[i] += amount;
-    data[i + 1] += amount;
-    data[i + 2] += amount;
+    data[i] = Helpers.clamp(data[i] + amount, 0, 255);
+    data[i + 1] = Helpers.clamp(data[i + 1] + amount, 0, 255);
+    data[i + 2] = Helpers.clamp(data[i + 2] + amount, 0, 255);
   }
 };
 
@@ -162,6 +163,15 @@ const thresholding = ({ data }, threshold) => {
   }
 };
 
+const resetImage = ({ data }, original) => {
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = original[i];
+    data[i + 1] = original[i + 1];
+    data[i + 2] = original[i + 2];
+    data[i + 3] = original[i + 3];
+  }
+};
+
 export default {
   invertColors,
   changeBrightness,
@@ -172,4 +182,5 @@ export default {
   contrastStretch,
   powerTransform,
   thresholding,
+  resetImage,
 };

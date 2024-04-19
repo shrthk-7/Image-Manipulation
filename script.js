@@ -6,6 +6,24 @@ const uploadBtn = document.getElementById("uploadBtn");
 const editor = document.getElementById("editor");
 const btns = document.getElementById("editorBtns");
 
+let originalData = [];
+
+const applyFilter = () => {
+  originalData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+};
+
+const loadDefault = () => {
+  const img = new Image();
+  img.src = "./apple.jpg";
+  img.onload = function () {
+    const ratio = img.width / img.height;
+    const newWidth = ratio * 500;
+    canvas.width = newWidth;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    applyFilter();
+  };
+};
+
 // Image Upload
 document
   .getElementById("imageInput")
@@ -19,12 +37,12 @@ document
     reader.onload = function (readerEvent) {
       const img = new Image();
       img.src = readerEvent.target.result;
-
       img.onload = function () {
         const ratio = img.width / img.height;
         const newWidth = ratio * 500;
         canvas.width = newWidth;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        applyFilter();
       };
     };
   });
@@ -38,7 +56,7 @@ brightnessBtn.addEventListener("click", (_clickEvent) => {
 const brightnessSlider = document.getElementById("brightnessSlider");
 brightnessSlider.addEventListener("input", (inputEvent) => {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  console.log(inputEvent.target.value);
+  Filters.resetImage(imageData, originalData);
   Filters.changeBrightness(imageData, inputEvent.target.value);
   ctx.putImageData(imageData, 0, 0);
 });
@@ -86,3 +104,5 @@ document
 
     a.click();
   });
+
+loadDefault();

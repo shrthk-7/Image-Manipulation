@@ -1,3 +1,4 @@
 *.jpeg
 *.png
 *.jpg
+!apple.jpg
