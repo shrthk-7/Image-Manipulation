@@ -2,6 +2,8 @@ import Filters from "./filters.js";
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const uploadBtn = document.getElementById("uploadBtn");
+const editor = document.getElementById("editor");
 
 // Image Upload
 document
@@ -9,7 +11,8 @@ document
   .addEventListener("change", (inputEvent) => {
     const file = inputEvent.target.files[0];
     if (!file) return;
-
+    uploadBtn.classList.add("hidden");
+    editor.classList.remove("hidden");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function (readerEvent) {
@@ -25,22 +28,31 @@ document
     };
   });
 
+//brightness slider
+const brightnessSlider = document.getElementById("brightnessSlider");
+brightnessSlider.addEventListener("input", (inputEvent) => {
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  console.log(inputEvent.target.value);
+  Filters.changeBrightness(imageData, inputEvent.target.value);
+  ctx.putImageData(imageData, 0, 0);
+});
+
 // Filter Button
-document
-  .getElementById("filterBtn")
-  .addEventListener("click", (_clickEvent) => {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    // Filters.invertColors(imageData);
-    // Filters.changeBrightness(imageData, -50);
-    // Filters.blackAndWhite(imageData);
-    // Filters.changeSaturation(imageData, 0.05);
-    // Filters.changeHue(imageData, 0.25);
-    // Filters.blur(imageData, canvas.height, canvas.width);
-    // Filters.contrastStretch(imageData);
-    // Filters.powerTransform(imageData, 1.2);
-    Filters.thresholding(imageData);
-    ctx.putImageData(imageData, 0, 0);
-  });
+// document
+//   .getElementById("filterBtn")
+//   .addEventListener("click", (_clickEvent) => {
+//     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+//     // Filters.invertColors(imageData);
+//     Filters.changeBrightness(imageData, -50);
+//     // Filters.blackAndWhite(imageData);
+//     // Filters.changeSaturation(imageData, 0.05);
+//     // Filters.changeHue(imageData, 0.25);
+//     // Filters.blur(imageData, canvas.height, canvas.width);
+//     // Filters.contrastStretch(imageData);
+//     // Filters.powerTransform(imageData, 1.2);
+//     // Filters.thresholding(imageData);
+//     ctx.putImageData(imageData, 0, 0);
+//   });
 
 // Download Button
 document
