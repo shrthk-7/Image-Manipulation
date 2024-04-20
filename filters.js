@@ -20,7 +20,7 @@ const changeBrightness = ({ data }, amount) => {
 const changeSaturation = ({ data }, amount) => {
   for (let i = 0; i < data.length; i += 4) {
     const [h, s, v] = Helpers.rgbToHsv(data[i], data[i + 1], data[i + 2]);
-    const [r, g, b] = Helpers.hsvToRgb(h, s + amount, v);
+    const [r, g, b] = Helpers.hsvToRgb(h, Helpers.clamp(s + amount, 0, 1), v);
     data[i] = r;
     data[i + 1] = g;
     data[i + 2] = b;

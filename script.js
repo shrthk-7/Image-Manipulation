@@ -48,36 +48,41 @@ document
   });
 
 //brightness slider
-const brightnessBtn = document.getElementById("brightnessBtn");
-const brightnessSlider = document.getElementById("brightnessSlider");
-brightnessBtn.addEventListener("click", (_clickEvent) => {
-  btns.classList.add("hidden");
-  brightnessSlider.classList.remove("hidden");
-});
-
-brightnessSlider.addEventListener("input", (inputEvent) => {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  Filters.resetImage(imageData, originalData);
-  Filters.changeBrightness(imageData, inputEvent.target.value);
-  ctx.putImageData(imageData, 0, 0);
-});
-
-brightnessSlider
-  .getElementsByClassName("applyBtn")[0]
-  .addEventListener("click", (_clickEvent) => {
-    brightnessSlider.classList.add("hidden");
-    btns.classList.remove("hidden");
-    applyFilter();
+const activateFilterBtn = (filterName, filterFn) => {
+  const btn = document.getElementById(`${filterName}Btn`);
+  const slider = document.getElementById(`${filterName}Slider`);
+  btn.addEventListener("click", (_clickEvent) => {
+    btns.classList.add("hidden");
+    slider.classList.remove("hidden");
   });
-brightnessSlider
-  .getElementsByClassName("cancelBtn")[0]
-  .addEventListener("click", (_clickEvent) => {
-    brightnessSlider.classList.add("hidden");
-    btns.classList.remove("hidden");
+  slider.addEventListener("input", (inputEvent) => {
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     Filters.resetImage(imageData, originalData);
+    filterFn(imageData, inputEvent.target.value);
     ctx.putImageData(imageData, 0, 0);
   });
+  slider
+    .getElementsByClassName("applyBtn")[0]
+    .addEventListener("click", (_clickEvent) => {
+      slider.classList.add("hidden");
+      btns.classList.remove("hidden");
+      applyFilter();
+    });
+  slider
+    .getElementsByClassName("cancelBtn")[0]
+    .addEventListener("click", (_clickEvent) => {
+      slider.classList.add("hidden");
+      btns.classList.remove("hidden");
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      Filters.resetImage(imageData, originalData);
+      ctx.putImageData(imageData, 0, 0);
+    });
+};
+
+activateFilterBtn("brightness", Filters.changeBrightness);
+activateFilterBtn("thresholding", Filters.thresholding);
+activateFilterBtn("saturation", Filters.changeSaturation);
+activateFilterBtn("powerTransform", Filters.powerTransform);
 
 // Filter Button
 // document
@@ -87,7 +92,7 @@ brightnessSlider
 //     // Filters.invertColors(imageData);
 //     Filters.changeBrightness(imageData, -50);
 //     // Filters.blackAndWhite(imageData);
-//     // Filters.changeSaturation(imageData, 0.05);
+// Filters.changeSaturation(imageData, 0.050);
 //     // Filters.changeHue(imageData, 0.25);
 //     // Filters.blur(imageData, canvas.height, canvas.width);
 //     // Filters.contrastStretch(imageData);
