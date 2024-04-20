@@ -58,7 +58,7 @@ const activateFilterBtn = (filterName, filterFn) => {
   slider.addEventListener("input", (inputEvent) => {
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     Filters.resetImage(imageData, originalData);
-    filterFn(imageData, inputEvent.target.value);
+    filterFn(imageData, Number(inputEvent.target.value));
     ctx.putImageData(imageData, 0, 0);
   });
   slider
@@ -83,6 +83,10 @@ activateFilterBtn("brightness", Filters.changeBrightness);
 activateFilterBtn("thresholding", Filters.thresholding);
 activateFilterBtn("saturation", Filters.changeSaturation);
 activateFilterBtn("powerTransform", Filters.powerTransform);
+activateFilterBtn("blur", (imageData, blurRadius) => {
+  console.log(blurRadius);
+  Filters.blur(imageData, blurRadius, canvas.height, canvas.width);
+});
 
 // Filter Button
 // document

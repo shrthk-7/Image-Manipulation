@@ -48,9 +48,8 @@ const blackAndWhite = ({ data }) => {
   }
 };
 
-const blur = ({ data }, rows, cols) => {
+const blur = ({ data }, windowSize, rows, cols) => {
   const dataCopy = [...data];
-  const windowSize = 3;
   const halfWindowSize = Math.floor(windowSize / 2);
   const area = windowSize * windowSize;
 
