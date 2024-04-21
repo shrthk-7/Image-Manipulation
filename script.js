@@ -56,7 +56,7 @@ document
     };
   });
 
-const activateFilterBtn = (filterName, filterFn, needsLoading) => {
+const activateSlider = (filterName, filterFn, needsLoading) => {
   const btn = document.getElementById(`${filterName}Btn`);
   const slider = document.getElementById(`${filterName}Slider`);
 
@@ -108,18 +108,35 @@ const activateFilterBtn = (filterName, filterFn, needsLoading) => {
     });
 };
 
-activateFilterBtn("brightness", Filters.changeBrightness);
-activateFilterBtn("thresholding", Filters.thresholding);
-activateFilterBtn("saturation", Filters.changeSaturation);
-activateFilterBtn("powerTransform", Filters.powerTransform);
-activateFilterBtn(
+const activateFilterBtn = (filterName, filterFn) => {
+  const btn = document.getElementById(`${filterName}Btn`);
+  btn.addEventListener("click", () => {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    filterFn(imageData);
+    ctx.putImageData(imageData, 0, 0);
+  });
+};
+
+activateSlider("brightness", Filters.changeBrightness);
+activateSlider("thresholding", Filters.thresholding);
+activateSlider("saturation", (imageData, amount) => {
+  Filters.changeSaturation(imageData, amount / 100);
+});
+activateSlider("powerTransform", Filters.powerTransform);
+activateSlider("contrast", Filters.changeContrast);
+activateSlider(
   "blur",
   (imageData, blurRadius) => {
     Filters.blur(imageData, blurRadius, canvas.height, canvas.width);
   },
   true
 );
+activateSlider("hue", (imageData, amount) => {
+  Filters.changeHue(imageData, amount / 100);
+});
 
+activateFilterBtn("b&w", Filters.blackAndWhite);
+activateFilterBtn("invert", Filters.invertColors);
 // Filter Button
 // document
 //   .getElementById("filterBtn")

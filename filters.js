@@ -171,6 +171,15 @@ const resetImage = ({ data }, original) => {
   }
 };
 
+function changeContrast({ data }, amount) {
+  const contrastFactor = (amount + 255) / 255;
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = contrastFactor * (data[i] - 127.5) + 127.5;
+    data[i + 1] = contrastFactor * (data[i + 1] - 127.5) + 127.5;
+    data[i + 2] = contrastFactor * (data[i + 2] - 127.5) + 127.5;
+  }
+}
+
 export default {
   invertColors,
   changeBrightness,
@@ -178,8 +187,8 @@ export default {
   changeSaturation,
   changeHue,
   blur,
-  contrastStretch,
   powerTransform,
   thresholding,
   resetImage,
+  changeContrast,
 };
