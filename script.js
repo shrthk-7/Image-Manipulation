@@ -5,6 +5,7 @@ const ctx = canvas.getContext("2d");
 const uploadBtn = document.getElementById("uploadBtn");
 const editor = document.getElementById("editor");
 const btns = document.getElementById("editorBtns");
+const loadingScreen = document.getElementById("loading");
 
 let originalData = [];
 
@@ -22,6 +23,14 @@ const loadDefault = () => {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     applyFilter();
   };
+};
+
+const setLoading = (loadingState) => {
+  if (loadingState) {
+    loadingScreen.classList.remove("hidden");
+  } else {
+    loadingScreen.classList.add("hidden");
+  }
 };
 
 // Image Upload
@@ -47,20 +56,39 @@ document
     };
   });
 
-//brightness slider
-const activateFilterBtn = (filterName, filterFn) => {
+const activateFilterBtn = (filterName, filterFn, needsLoading) => {
   const btn = document.getElementById(`${filterName}Btn`);
   const slider = document.getElementById(`${filterName}Slider`);
+
   btn.addEventListener("click", (_clickEvent) => {
     btns.classList.add("hidden");
     slider.classList.remove("hidden");
   });
+
   slider.addEventListener("input", (inputEvent) => {
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    Filters.resetImage(imageData, originalData);
-    filterFn(imageData, Number(inputEvent.target.value));
-    ctx.putImageData(imageData, 0, 0);
+    /*
+      In case of slow filter functions (eg Blur),
+      a loading screen is shown which is removed once
+      the filter is done prcessing
+      However the call stack needs to be emptied before repainting
+      hence the immediate setTimeout() is needed
+    */
+    if (needsLoading) {
+      setLoading(true);
+      setTimeout(() => {
+        Filters.resetImage(imageData, originalData);
+        filterFn(imageData, Number(inputEvent.target.value));
+        ctx.putImageData(imageData, 0, 0);
+        setLoading(false);
+      }, 0);
+    } else {
+      Filters.resetImage(imageData, originalData);
+      filterFn(imageData, Number(inputEvent.target.value));
+      ctx.putImageData(imageData, 0, 0);
+    }
   });
+
   slider
     .getElementsByClassName("applyBtn")[0]
     .addEventListener("click", (_clickEvent) => {
@@ -68,6 +96,7 @@ const activateFilterBtn = (filterName, filterFn) => {
       btns.classList.remove("hidden");
       applyFilter();
     });
+
   slider
     .getElementsByClassName("cancelBtn")[0]
     .addEventListener("click", (_clickEvent) => {
@@ -83,10 +112,13 @@ activateFilterBtn("brightness", Filters.changeBrightness);
 activateFilterBtn("thresholding", Filters.thresholding);
 activateFilterBtn("saturation", Filters.changeSaturation);
 activateFilterBtn("powerTransform", Filters.powerTransform);
-activateFilterBtn("blur", (imageData, blurRadius) => {
-  console.log(blurRadius);
-  Filters.blur(imageData, blurRadius, canvas.height, canvas.width);
-});
+activateFilterBtn(
+  "blur",
+  (imageData, blurRadius) => {
+    Filters.blur(imageData, blurRadius, canvas.height, canvas.width);
+  },
+  true
+);
 
 // Filter Button
 // document
