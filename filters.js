@@ -180,6 +180,55 @@ function changeContrast({ data }, amount) {
   }
 }
 
+const edgeDetection = ({ data }, rows, cols) => {
+  const getIdx = (x, y) => 4 * (y * cols + x);
+  blackAndWhite({ data });
+  const dataCopy = [...data];
+  const windowSize = 3;
+
+  /*
+     0  1  2
+    -1  0  1
+    -2 -1  0
+
+     -2  -1  0
+     -1   0  1
+      0   1  2
+  */
+  for (let x = 1; x <= cols - 1; x++) {
+    for (let y = 1; y <= rows - 1; y++) {
+      let val = 0;
+      val -= data[getIdx(x - 1, y)];
+      val += data[getIdx(x + 1, y)];
+      val -= data[getIdx(x, y + 1)];
+      val += data[getIdx(x, y - 1)];
+      val += 2 * data[getIdx(x + 1, y - 1)];
+      val -= 2 * data[getIdx(x - 1, y + 1)];
+
+      let val2 = 0;
+      val2 -= data[getIdx(x - 1, y)];
+      val2 += data[getIdx(x + 1, y)];
+      val2 += data[getIdx(x, y + 1)];
+      val2 -= data[getIdx(x, y - 1)];
+      val2 += 2 * data[getIdx(x + 1, y + 1)];
+      val2 -= 2 * data[getIdx(x - 1, y - 1)];
+
+      const final = Math.abs(val) + Math.abs(val2);
+      const idx = getIdx(x, y);
+      dataCopy[idx] = final;
+      dataCopy[idx + 1] = final;
+      dataCopy[idx + 2] = final;
+    }
+  }
+
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = dataCopy[i];
+    data[i + 1] = dataCopy[i + 1];
+    data[i + 2] = dataCopy[i + 2];
+    data[i + 3] = dataCopy[i + 3];
+  }
+};
+
 export default {
   invertColors,
   changeBrightness,
@@ -191,4 +240,5 @@ export default {
   thresholding,
   resetImage,
   changeContrast,
+  edgeDetection,
 };

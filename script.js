@@ -135,8 +135,18 @@ activateSlider("hue", (imageData, amount) => {
   Filters.changeHue(imageData, amount / 100);
 });
 
-activateFilterBtn("b&w", Filters.blackAndWhite);
-activateFilterBtn("invert", Filters.invertColors);
+activateFilterBtn("b&w", (imageData) => {
+  Filters.blackAndWhite(imageData);
+  applyFilter();
+});
+activateFilterBtn("invert", (imageData) => {
+  Filters.invertColors(imageData);
+  applyFilter();
+});
+activateFilterBtn("edgeDetection", (imageData) => {
+  Filters.edgeDetection(imageData, canvas.height, canvas.width);
+  applyFilter();
+});
 // Filter Button
 // document
 //   .getElementById("filterBtn")
