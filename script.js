@@ -10,7 +10,9 @@ const loadingScreen = document.getElementById("loading");
 let originalData = [];
 
 const applyFilter = () => {
-  originalData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  setTimeout(() => {
+    originalData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  }, 500);
 };
 
 const loadDefault = () => {
