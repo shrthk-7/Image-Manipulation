@@ -29,6 +29,13 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+.sliders{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .hidden {
   display: none !important;
 }
