@@ -136,6 +136,9 @@ activateSlider(
 activateSlider("hue", (imageData, amount) => {
   Filters.changeHue(imageData, amount / 100);
 });
+activateSlider("pixelate", (imageData, amount) => {
+  Filters.pixelate(imageData, amount, canvas.height, canvas.width);
+});
 
 activateFilterBtn("b&w", (imageData) => {
   Filters.blackAndWhite(imageData);
@@ -149,22 +152,6 @@ activateFilterBtn("edgeDetection", (imageData) => {
   Filters.edgeDetection(imageData, canvas.height, canvas.width);
   applyFilter();
 });
-// Filter Button
-// document
-//   .getElementById("filterBtn")
-//   .addEventListener("click", (_clickEvent) => {
-//     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-//     // Filters.invertColors(imageData);
-//     Filters.changeBrightness(imageData, -50);
-//     // Filters.blackAndWhite(imageData);
-// Filters.changeSaturation(imageData, 0.050);
-//     // Filters.changeHue(imageData, 0.25);
-//     // Filters.blur(imageData, canvas.height, canvas.width);
-//     // Filters.contrastStretch(imageData);
-//     // Filters.powerTransform(imageData, 1.2);
-//     // Filters.thresholding(imageData);
-//     ctx.putImageData(imageData, 0, 0);
-//   });
 
 // Download Button
 document
