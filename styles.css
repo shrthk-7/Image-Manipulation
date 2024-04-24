@@ -11,23 +11,41 @@
   margin: auto;
   display: flex;
   gap: 1rem;
-  /* justify-content: center;
-  align-items: center; */
 }
 
 .filters{
   flex: 1;
   overflow: scroll;
+  width: 100%;
   height: 100%;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.uploadBtnContainer{
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.1);
+
+}
+.uploadBtnContainer{
+  width: 100%;
+  display: flex;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  button{
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    img{
+      background: none;
+      filter: invert(1);
+    }
+  }
+  button:hover{
+    background-color: rgba(255,255,255,0.2);
+  }
 }
 
 .uploadBtn{
@@ -77,6 +95,7 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(4, 1fr); */
+  width: 100%;
   display: flex;
   gap: 0.1rem;
   justify-content: center;
@@ -215,14 +234,22 @@ button:hover{
 }
 
 #downloadBtn{
-  flex: 1;
-  display: block;
-  margin: auto;
-  background-color: rgba(255, 0, 0, 0.501);
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  border: 0;
+  text-decoration: none;
+  border-radius: 15px;
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(30px);
+  color: rgba(255,255,255,0.8);
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
-
 #downloadBtn:hover{
-  background-color: rgba(255, 0, 0, 0.625);
+  background-color: rgba(255,255,255,0.2);
 }
 
 #myCanvas{

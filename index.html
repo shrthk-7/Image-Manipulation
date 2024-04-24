@@ -14,25 +14,28 @@
     <div class="container">
       <div class="filters">
         <div class="uploadBtnContainer">
-          <input type="file" id="imageInput" style="display: none" />
-          <label class="uploadBtn" for="imageInput">Upload Image</label>
+			<input type="file" id="imageInput" style="display: none" />
+			<label class="uploadBtn" for="imageInput">Upload Image</label>
+			<button id="undoBtn" title="Undo">
+				<img src = "./assets/undo.png" style="width: 20px; height: 20px;">
+			</button>
         </div>
 
         <div id="editorBtns">
-          <button class="" id="brightnessBtn">Brightness</button>
-          <button class="" id="invertBtn">Invert</button>
-          <button class="" id="b&wBtn">Black & White</button>
-          <button class="" id="saturationBtn">Saturation</button>
-          <button class="" id="hueBtn">Hue</button>
-          <button class="" id="blurBtn">Blur</button>
-          <button class="" id="contrastBtn">Contrast</button>
-          <button class="" id="powerTransformBtn">Power Transform</button>
-          <button class="" id="thresholdingBtn">Thresholding</button>
+          <button id="brightnessBtn">Brightness</button>
+          <button id="invertBtn">Invert</button>
+          <button id="b&wBtn">Black & White</button>
+          <button id="saturationBtn">Saturation</button>
+          <button id="hueBtn">Hue</button>
+          <button id="blurBtn">Blur</button>
+          <button id="contrastBtn">Contrast</button>
+          <button id="powerTransformBtn">Power Transform</button>
+          <button id="thresholdingBtn">Thresholding</button>
           <button id="edgeDetectionBtn">Detect Edges</button>
 		  <button id="pixelateBtn">Pixelate</button>
         </div>
+		
         <button id="downloadBtn">Download</button>
-		<button id="undoBtn">Undo</button>
       </div>
       <div class="canvasDiv">
         <div class="canvasContainer">
@@ -138,7 +141,7 @@
               <button class="applyBtn">Apply</button>
             </div>
           </div>
-		  <div id="pixelateSlider" class="hidden">
+		  <div id="pixelateSlider" class="sliders hidden">
 			<p>Pixelate</p>
 			<div>
 				<button class="cancelBtn">Cancel</button>
