@@ -41,8 +41,8 @@ document
   .addEventListener("change", (inputEvent) => {
     const file = inputEvent.target.files[0];
     if (!file) return;
-    uploadBtn.classList.add("hidden");
-    editor.classList.remove("hidden");
+    // uploadBtn.classList.add("hidden");
+    // editor.classList.remove("hidden");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function (readerEvent) {
