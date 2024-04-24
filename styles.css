@@ -1,16 +1,84 @@
 *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: rgb(7, 102, 180);
 }
 
 .container {
   width: 100%;
+  height: 100vh;
   margin: auto;
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+}
+
+.filters{
+  flex: 1;
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.1);
+
+}
+.uploadBtnContainer{
+  width: 100%;
+  display: flex;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
+  padding: 1rem;
+  button{
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    img{
+      background: none;
+      filter: invert(1);
+    }
+  }
+  button:hover{
+    background-color: rgba(255,255,255,0.2);
+  }
+}
+
+.uploadBtn{
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(30px);
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+}
+.uploadBtn:hover{
+  background-color: rgba(255,255,255,0.2);
+}
+
+.canvasDiv{
+  flex:3;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvasContainer{
+  flex: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: 30px 30px; 
+  background-color: rgb(149, 149, 149);
+  background-image: 
+    linear-gradient(to right, grey 1px, transparent 1px), 
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+
 }
 
 .editor {
@@ -23,10 +91,46 @@
 }
 
 #editorBtns{
-  padding: 1rem 8rem 1rem 8rem;
+  /* padding: 1rem 8rem 1rem 8rem;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); */
+  width: 100%;
+  display: flex;
+  gap: 0.1rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  button{
+    width: 100%;
+    padding: 1rem 2rem;
+    border: 0;
+    text-decoration: none;
+    background-color: rgba(255,255,255,0.1);
+    /* border: 1px solid rgba(255,255,255,0.1); */
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  button:hover{
+    background-color: rgba(255,255,255,0.2);
+  }
+}
+
+.sliders{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  p{
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    /* font-size: 1.5rem; */
+  }
 }
 
 .hidden {
@@ -46,7 +150,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-button{
+/* button{
   display: inline-block;
   padding: 24px 20px;
   border: 0;
@@ -64,23 +168,91 @@ button{
 
 button:hover{
   background-color: rgba(255,255,255,0.2);
+} */
+
+.sliderDiv{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button{
+    padding: 0.4rem 0.4rem;
+    border: 0;
+    text-decoration: none;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  button:hover{
+    background-color: rgba(255,255,255,0.2);
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 15rem; 
+    height: 8px; 
+    background: #ccc;
+    outline: none; /* Remove blue glow on focus */
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: #ccc;
+    border-radius: 5px;
+  }
+  
+  input[type="range"]::-moz-range-track {
+    background: #ccc;
+    border-radius: 5px;
+  }
+  
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #04AA6D; 
+    border-radius: 50%; 
+    cursor: pointer;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #04AA6D; 
+    border-radius: 50%; 
+    cursor: pointer;
+  }
+  
 }
 
 #downloadBtn{
-  display: block;
-  margin: auto;
-  background-color: rgba(255, 0, 0, 0.501);
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  border: 0;
+  text-decoration: none;
+  border-radius: 15px;
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(30px);
+  color: rgba(255,255,255,0.8);
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
-
 #downloadBtn:hover{
-  background-color: rgba(255, 0, 0, 0.625);
+  background-color: rgba(255,255,255,0.2);
 }
 
 #myCanvas{
   display: block;
   margin: auto;
-}
-
-#downloadBtn{
-  
 }

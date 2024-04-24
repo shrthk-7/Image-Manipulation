@@ -3,10 +3,9 @@ import VersionControl from "./versionControl.js";
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-const uploadBtn = document.getElementById("uploadBtn");
-const editor = document.getElementById("editor");
 const btns = document.getElementById("editorBtns");
 const loadingScreen = document.getElementById("loading");
+const sliderDiv = document.querySelector(".sliderDiv");
 
 let currentData = [];
 
@@ -50,8 +49,8 @@ document
   .addEventListener("change", (inputEvent) => {
     const file = inputEvent.target.files[0];
     if (!file) return;
-    uploadBtn.classList.add("hidden");
-    editor.classList.remove("hidden");
+    // uploadBtn.classList.add("hidden");
+    // editor.classList.remove("hidden");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function (readerEvent) {
@@ -72,7 +71,10 @@ const activateSlider = (filterName, filterFn, needsLoading) => {
   const slider = document.getElementById(`${filterName}Slider`);
 
   btn.addEventListener("click", (_clickEvent) => {
-    btns.classList.add("hidden");
+    const children = sliderDiv.children;
+    for (let i = 0; i < children.length; i++) {
+      children[i].classList.add("hidden");
+    }
     slider.classList.remove("hidden");
   });
 
