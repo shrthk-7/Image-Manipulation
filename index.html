@@ -29,8 +29,10 @@
           <button class="" id="powerTransformBtn">Power Transform</button>
           <button class="" id="thresholdingBtn">Thresholding</button>
           <button id="edgeDetectionBtn">Detect Edges</button>
+		  <button id="pixelateBtn">Pixelate</button>
         </div>
         <button id="downloadBtn">Download</button>
+		<button id="undoBtn">Undo</button>
       </div>
       <div class="canvasDiv">
         <div class="canvasContainer">
@@ -136,6 +138,14 @@
               <button class="applyBtn">Apply</button>
             </div>
           </div>
+		  <div id="pixelateSlider" class="hidden">
+			<p>Pixelate</p>
+			<div>
+				<button class="cancelBtn">Cancel</button>
+				<input id="pixelateSlider" type="range" min="1" max="20" value="1">
+				<button class="applyBtn">Apply</button>
+			</div>
+		</div>
         </div>
       </div>
     </div>

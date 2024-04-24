@@ -1,4 +1,5 @@
 import Filters from "./filters.js";
+import VersionControl from "./versionControl.js";
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
@@ -6,12 +7,20 @@ const btns = document.getElementById("editorBtns");
 const loadingScreen = document.getElementById("loading");
 const sliderDiv = document.querySelector(".sliderDiv");
 
-let originalData = [];
+let currentData = [];
 
 const applyFilter = () => {
   setTimeout(() => {
-    originalData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    currentData = VersionControl.applyChange(data);
   }, 500);
+};
+
+const undoFilter = () => {
+  currentData = VersionControl.undoChange();
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  Filters.resetImage(imageData, currentData);
+  ctx.putImageData(imageData, 0, 0);
 };
 
 const loadDefault = () => {
@@ -81,13 +90,13 @@ const activateSlider = (filterName, filterFn, needsLoading) => {
     if (needsLoading) {
       setLoading(true);
       setTimeout(() => {
-        Filters.resetImage(imageData, originalData);
+        Filters.resetImage(imageData, currentData);
         filterFn(imageData, Number(inputEvent.target.value));
         ctx.putImageData(imageData, 0, 0);
         setLoading(false);
       }, 0);
     } else {
-      Filters.resetImage(imageData, originalData);
+      Filters.resetImage(imageData, currentData);
       filterFn(imageData, Number(inputEvent.target.value));
       ctx.putImageData(imageData, 0, 0);
     }
@@ -107,7 +116,7 @@ const activateSlider = (filterName, filterFn, needsLoading) => {
       slider.classList.add("hidden");
       btns.classList.remove("hidden");
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      Filters.resetImage(imageData, originalData);
+      Filters.resetImage(imageData, currentData);
       ctx.putImageData(imageData, 0, 0);
     });
 };
@@ -138,6 +147,9 @@ activateSlider(
 activateSlider("hue", (imageData, amount) => {
   Filters.changeHue(imageData, amount / 100);
 });
+activateSlider("pixelate", (imageData, amount) => {
+  Filters.pixelate(imageData, amount, canvas.height, canvas.width);
+});
 
 activateFilterBtn("b&w", (imageData) => {
   Filters.blackAndWhite(imageData);
@@ -151,22 +163,6 @@ activateFilterBtn("edgeDetection", (imageData) => {
   Filters.edgeDetection(imageData, canvas.height, canvas.width);
   applyFilter();
 });
-// Filter Button
-// document
-//   .getElementById("filterBtn")
-//   .addEventListener("click", (_clickEvent) => {
-//     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-//     // Filters.invertColors(imageData);
-//     Filters.changeBrightness(imageData, -50);
-//     // Filters.blackAndWhite(imageData);
-// Filters.changeSaturation(imageData, 0.050);
-//     // Filters.changeHue(imageData, 0.25);
-//     // Filters.blur(imageData, canvas.height, canvas.width);
-//     // Filters.contrastStretch(imageData);
-//     // Filters.powerTransform(imageData, 1.2);
-//     // Filters.thresholding(imageData);
-//     ctx.putImageData(imageData, 0, 0);
-//   });
 
 // Download Button
 document
@@ -182,4 +178,5 @@ document
     a.click();
   });
 
+document.getElementById("undoBtn").addEventListener("click", undoFilter);
 loadDefault();

@@ -131,8 +131,7 @@ const contrastStretch = ({ data }, lowerLimit, upperLimit) => {
 };
 
 const powerTransform = ({ data }, gamma) => {
-  if (!gamma) gamma = 1.5;
-
+  if (typeof gamma === "undefined") gamma = 1.5;
   for (let i = 0; i < data.length; i += 4) {
     const r = data[i];
     const g = data[i + 1];
@@ -230,6 +229,42 @@ const edgeDetection = ({ data }, rows, cols) => {
   }
 };
 
+const pixelate = ({ data }, windowSize, rows, cols) => {
+  const getIdx = (x, y) => 4 * (y * cols + x);
+
+  const numCells = windowSize * windowSize;
+
+  for (let x = 0; x < cols; x += windowSize) {
+    for (let y = 0; y < rows; y += windowSize) {
+      let r = 0;
+      let g = 0;
+      let b = 0;
+
+      for (let i = 0; i < windowSize; i++) {
+        for (let j = 0; j < windowSize; j++) {
+          const idx = getIdx(x + i, y + j);
+          r += data[idx];
+          g += data[idx + 1];
+          b += data[idx + 2];
+        }
+      }
+
+      r = r / numCells;
+      g = g / numCells;
+      b = b / numCells;
+
+      for (let i = 0; i < windowSize; i++) {
+        for (let j = 0; j < windowSize; j++) {
+          const idx = getIdx(x + i, y + j);
+          data[idx] = r;
+          data[idx + 1] = g;
+          data[idx + 2] = b;
+        }
+      }
+    }
+  }
+};
+
 export default {
   invertColors,
   changeBrightness,
@@ -242,4 +277,5 @@ export default {
   resetImage,
   changeContrast,
   edgeDetection,
+  pixelate,
 };
