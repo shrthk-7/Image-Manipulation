@@ -27,93 +27,115 @@
           <button class="" id="blurBtn">Blur</button>
           <button class="" id="contrastBtn">Contrast</button>
           <button class="" id="powerTransformBtn">Power Transform</button>
-          <button class="" id="thresholdingBtn">Thresholding</button>	
-			<button id="edgeDetectionBtn">Detect Edges</button>		
+          <button class="" id="thresholdingBtn">Thresholding</button>
+          <button id="edgeDetectionBtn">Detect Edges</button>
         </div>
+        <button id="downloadBtn">Download</button>
       </div>
       <div class="canvasDiv">
-        <div id="editor">
-          <div class="canvasContainer">
-            <canvas
-              id="myCanvas"
-              width="500"
-              height="500"
-              style="border: 2px solid white"
-            ></canvas>
-          </div>
+        <div class="canvasContainer">
+          <canvas
+            id="myCanvas"
+            width="500"
+            height="500"
+            style="border: 2px solid white"
+          ></canvas>
+        </div>
+        <div class="sliderDiv">
           <div id="brightnessSlider" class="sliders hidden">
-            <input
-              id="brightnessSlider"
-              type="range"
-              min="-600"
-              max="600"
-              value="0"
-            />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Brightness</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+              <input
+                id="brightnessSlider"
+                type="range"
+                min="-600"
+                max="600"
+                value="0"
+              />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
           <div id="saturationSlider" class="sliders hidden">
-            <input
-              id="saturationSlider"
-              type="range"
-              min="-100"
-              max="100"
-              value="0"
-            />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Saturation</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+
+              <input
+                id="saturationSlider"
+                type="range"
+                min="-100"
+                max="100"
+                value="0"
+              />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
           <div id="blurSlider" class="sliders hidden">
-            <input
-              id="blurSlider"
-              type="range"
-              min="1"
-              max="31"
-              value="1"
-              step="2"
-            />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Blur</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+              <input
+                id="blurSlider"
+                type="range"
+                min="1"
+                max="31"
+                value="1"
+                step="2"
+              />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
           <div id="powerTransformSlider" class="sliders hidden">
-            <input
-              id="powerTransformSlider"
-              type="range"
-              min="0"
-              max="2"
-              step="0.01"
-            />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Power Transform</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+              <input
+                id="powerTransformSlider"
+                type="range"
+                min="0"
+                max="2"
+                step="0.01"
+              />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
           <div id="thresholdingSlider" class="sliders hidden">
-            <input
-              id="thresholdingSlider"
-              type="range"
-              min="0"
-              max="255"
-              value="128"
-            />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Thresholding</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+              <input
+                id="thresholdingSlider"
+                type="range"
+                min="0"
+                max="255"
+                value="128"
+              />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
           <div id="contrastSlider" class="sliders hidden">
-            <input
-              id="contrastSlider"
-              type="range"
-              min="-255"
-              max="255"
-              value="0"
-            />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Contrast</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+              <input
+                id="contrastSlider"
+                type="range"
+                min="-255"
+                max="255"
+                value="0"
+              />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
           <div id="hueSlider" class="sliders hidden">
-            <input id="hueSlider" type="range" min="0" max="100" value="0" />
-            <button class="cancelBtn">Cancel</button>
-            <button class="applyBtn">Apply</button>
+            <p>Hue</p>
+            <div>
+              <button class="cancelBtn">Cancel</button>
+              <input id="hueSlider" type="range" min="0" max="100" value="0" />
+              <button class="applyBtn">Apply</button>
+            </div>
           </div>
-          <button id="downloadBtn">Download</button>
         </div>
       </div>
     </div>

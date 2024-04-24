@@ -11,8 +11,8 @@
   margin: auto;
   display: flex;
   gap: 1rem;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
 }
 
 .filters{
@@ -46,6 +46,21 @@
 
 .canvasDiv{
   flex:3;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvasContainer{
+  flex: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: 30px 30px; 
+  background-color: rgb(149, 149, 149);
+  background-image: 
+    linear-gradient(to right, grey 1px, transparent 1px), 
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+
 }
 
 .editor {
@@ -91,6 +106,12 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  p{
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    /* font-size: 1.5rem; */
+  }
 }
 
 .hidden {
@@ -130,7 +151,71 @@ button:hover{
   background-color: rgba(255,255,255,0.2);
 } */
 
+.sliderDiv{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button{
+    padding: 0.4rem 0.4rem;
+    border: 0;
+    text-decoration: none;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  button:hover{
+    background-color: rgba(255,255,255,0.2);
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 15rem; 
+    height: 8px; 
+    background: #ccc;
+    outline: none; /* Remove blue glow on focus */
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: #ccc;
+    border-radius: 5px;
+  }
+  
+  input[type="range"]::-moz-range-track {
+    background: #ccc;
+    border-radius: 5px;
+  }
+  
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #04AA6D; 
+    border-radius: 50%; 
+    cursor: pointer;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #04AA6D; 
+    border-radius: 50%; 
+    cursor: pointer;
+  }
+  
+}
+
 #downloadBtn{
+  flex: 1;
   display: block;
   margin: auto;
   background-color: rgba(255, 0, 0, 0.501);
