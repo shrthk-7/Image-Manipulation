@@ -1,4 +1,5 @@
 import Filters from "./filters.js";
+import VersionControl from "./versionControl.js";
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
@@ -7,12 +8,20 @@ const editor = document.getElementById("editor");
 const btns = document.getElementById("editorBtns");
 const loadingScreen = document.getElementById("loading");
 
-let originalData = [];
+let currentData = [];
 
 const applyFilter = () => {
   setTimeout(() => {
-    originalData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    currentData = VersionControl.applyChange(data);
   }, 500);
+};
+
+const undoFilter = () => {
+  currentData = VersionControl.undoChange();
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  Filters.resetImage(imageData, currentData);
+  ctx.putImageData(imageData, 0, 0);
 };
 
 const loadDefault = () => {
@@ -79,13 +88,13 @@ const activateSlider = (filterName, filterFn, needsLoading) => {
     if (needsLoading) {
       setLoading(true);
       setTimeout(() => {
-        Filters.resetImage(imageData, originalData);
+        Filters.resetImage(imageData, currentData);
         filterFn(imageData, Number(inputEvent.target.value));
         ctx.putImageData(imageData, 0, 0);
         setLoading(false);
       }, 0);
     } else {
-      Filters.resetImage(imageData, originalData);
+      Filters.resetImage(imageData, currentData);
       filterFn(imageData, Number(inputEvent.target.value));
       ctx.putImageData(imageData, 0, 0);
     }
@@ -105,7 +114,7 @@ const activateSlider = (filterName, filterFn, needsLoading) => {
       slider.classList.add("hidden");
       btns.classList.remove("hidden");
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      Filters.resetImage(imageData, originalData);
+      Filters.resetImage(imageData, currentData);
       ctx.putImageData(imageData, 0, 0);
     });
 };
@@ -167,4 +176,5 @@ document
     a.click();
   });
 
+document.getElementById("undoBtn").addEventListener("click", undoFilter);
 loadDefault();
