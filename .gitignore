@@ -2,3 +2,4 @@
 *.png
 *.jpg
 !apple.jpg
+!assets/undo.png
